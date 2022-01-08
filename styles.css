@@ -1,0 +1,28 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+table {
+  margin: auto;
+  margin-top: 2rem;
+}
+
+td {
+  border: 1px solid #000000;
+  border-collapse: collapse;
+  width: 20px;
+  height: 20px;
+}
+
+#final_word {
+  margin: auto;
+  display: block;
+  margin-top: 1rem;
+}
+
+button {
+  margin: auto;
+  display: block;
+  margin-top: 1rem;
+}
