@@ -39,11 +39,13 @@ function findLastLine() {
 
   var last_row = 0;
   for (var i=5; i >= 0; i--) {
+    // console.log("checking row",i,rows[i]);
     var row = rows[i];
     var cells = row.children;
     for (var j=0; j < 5; j++) {
+      // console.log("checking td",j,cells[j]);
       var cell = cells[j]
-      last_row = j
+      last_row = i
       if (cell.style.backgroundColor != colours.green) {
         last_row = 0;
         break;
@@ -64,7 +66,7 @@ async function getWords() {
     return res.text();
   })
   .then(function (text) {
-    return text;
+    return text.split("\n");
   });
   let word_list = await word_list_promise;
   return word_list;
@@ -106,10 +108,30 @@ async function getWords() {
   */
 }
 
-function guessWords(row) {
-  let words = getWords();
-  console.log(words);
+async function guessWords(word,row) {
+  let words = await getWords();
 
+  // let template = [0,g,g,g,g]
+  // given windy
+  // .indy
+  let pattern = "";
+  for (let i=0; i < row.children.length; i++) {
+    let td = row.children[i];
+    let bgColor = td.style.backgroundColor;
+    if (bgColor == "" || bgColor == colours.white) {
+      pattern = pattern + ".";
+    } else if (bgColor == colours.green) {
+      pattern = pattern + word[i];
+    } else {
+
+    }
+  }
+  console.log(pattern);
+  for (let word of words) {
+    if (word.search(pattern) >= 0) {
+      console.log(word);
+    }
+  }
   
 
 }
@@ -124,6 +146,8 @@ function findGuesses() {
 
   var table = document.getElementById("entry_table")
   var rows = (table.children[0].children)
-  guessWords(rows[lastLine-1])
+  let word = 'windy'
+  // add a check for lastline == 0 (-1 is no row)
+  guessWords(word,rows[lastLine-1])
 
 }
