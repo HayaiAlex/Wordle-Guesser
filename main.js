@@ -6,7 +6,7 @@
 // nicely display possible guesses
 
 window.onload=function() {
-  document.getElementById("entry_table").addEventListener("click",toggleColour)
+  document.getElementById("entry_table").addEventListener("click",setColour)
 }
 
 colours = {
@@ -15,21 +15,34 @@ colours = {
   green: "rgb(74, 178, 100)",
 }
 
-function toggleColour(clicked) {
+let newColour = colours["green"];
+
+function keyBoxClicked(colour) {
+  console.log(colour);
+
+  colourBoxes = {
+    whitebox: document.getElementById("whitebox"),
+    yellowbox: document.getElementById("yellowbox"),
+    greenbox: document.getElementById("greenbox"),
+  }
+
+  // reset box outlines
+  for (let box in colourBoxes) {
+    colourBoxes[box].style.border = "1px solid black";
+  }
+
+  // set coloured box outline
+  colourBoxes[colour+"box"].style.border = "2px solid green";
+  newColour = colours[colour];
+}
+
+function setColour(clicked) {
   element = clicked.target
   if (element.nodeName != "TD") {
     return
   }
 
-  bgColor = element.style.backgroundColor
-  
-  if (bgColor == "" || bgColor == colours.white) {
-    element.style.backgroundColor = colours.yellow;
-  } else if (bgColor == colours.yellow) {
-    element.style.backgroundColor = colours.green;
-  } else {
-    element.style.backgroundColor = colours.white;
-  }
+  element.style.backgroundColor = newColour;
   
 }
 

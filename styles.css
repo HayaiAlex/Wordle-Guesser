@@ -5,7 +5,20 @@
 
 table {
   margin: auto;
-  margin-top: 2rem;
+  margin-top: 1rem;
+}
+
+#whitebox {
+  background-color: #fff;
+}
+
+#yellowbox {
+  background-color: rgb(221, 188, 88);
+}
+
+#greenbox {
+  background-color: rgb(74, 178, 100);
+  border: 2px solid green;
 }
 
 td {
