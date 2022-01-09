@@ -56,14 +56,62 @@ function findLastLine() {
   return last_row
 }
 
-function guessWords() {
-  var words = "words.txt";
-  var reader = new FileReader();
+async function getWords() {
+  // Thank you Jack <3
   
-  reader.readAsText(words);
-  reader.onload = function() {
-    console.log(reader.result);
-  }
+  let word_list_promise = fetch("five_letter_list.txt")
+  .then(function (res) {
+    return res.text();
+  })
+  .then(function (text) {
+    return text;
+  });
+  let word_list = await word_list_promise;
+  return word_list;
+  /*
+  .then(function (text) {
+    // Text is a long string containing the entire file
+    // You can split on the newline to load it into an array
+    const words = text.split("\n");
+    console.log(words);
+
+    // Even better, you can load it into a Set
+    const wordsSet = new Set(words);
+    console.log(wordsSet);
+
+    // This is O(n)
+    console.log(words.includes("is"));
+
+    // This is roughly O(1)
+    console.log(wordsSet.has("is"));
+
+    // Can use a list or a set. If you only need to check if
+    // the word is in the set, then the set is the most efficient
+    // data structure to use
+
+    // To loop through the words
+    for (let word of wordsSet) {
+      console.log("FOR: ", word);
+    }
+
+    // Or
+    wordsSet.forEach(function (word) {
+      console.log("FOR each: ", word);
+    });
+
+    // And a quick note of anonymous functions.
+    // You may have also seen this notation
+    // wordsSet.forEach((word) => console.log("Arror: ", word));
+  });
+  */
+}
+
+function guessWords(row) {
+  let words = getWords();
+  console.log(words);
+
+  
+
 }
 
 function findGuesses() {
