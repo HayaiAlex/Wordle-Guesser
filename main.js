@@ -146,7 +146,7 @@ function findGuesses() {
 
   var table = document.getElementById("entry_table")
   var rows = (table.children[0].children)
-  let word = 'windy'
+  let word = document.getElementById("final_word").value;
   // add a check for lastline == 0 (-1 is no row)
   guessWords(word,rows[lastLine-1])
 
