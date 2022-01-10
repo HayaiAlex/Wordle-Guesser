@@ -310,6 +310,7 @@ function worldeEntryChanged() {
   for (let square of input) {
     let td = rows[Math.floor(counter/5)].children[counter%5];
     if (square == "⬜") {
+      td.dataset.colour = "white";
     } else if (square == "🟨") {
       td.dataset.colour = "yellow";
     } else if (square == "🟩") {

@@ -82,15 +82,18 @@ td {
 }
 
 [data-colour="white"] {
+  animation: whiteransistion 0.5s forwards;
   background-color: rgb(255, 255, 255);
 }
 
 [data-colour="yellow"] {
+  animation: yellowTransistion 0.5s forwards;
   background-color: rgb(221, 188, 88);
   border: none;
 }
 
 [data-colour="green"] {
+  animation: greenTransistion 0.5s forwards;
   background-color: rgb(74, 178, 100);
   border: none;
 }
@@ -194,3 +197,41 @@ footer p {
   padding: 0.25rem;
   text-align: center;
 }
+
+@keyframes greenTransistion {
+  from {
+  }
+  to {
+    background-color: rgb(255, 255, 255);
+    border: 0.2rem solid #aaa;
+  }
+}
+
+@keyframes yellowTransistion {
+  from {
+    background-color: #fff;
+    border: 0.2rem solid #aaa;
+  }
+  to {
+    background-color: rgb(221, 188, 88);
+    border: 0;
+  }
+}
+
+@keyframes greenTransistion {
+  from {
+    background-color: #fff;
+    border: 0.2rem solid #aaa;
+  }
+  to {
+    background-color: rgb(74, 178, 100);
+    border: 0;
+  }
+}
+
+/* Wordle 205 4/6
+
+⬜⬜⬜⬜🟨
+⬜🟨🟩⬜⬜
+🟩🟩🟩⬜🟨
+🟩🟩🟩🟩🟩 */
