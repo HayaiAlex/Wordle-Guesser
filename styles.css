@@ -1,11 +1,41 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
-#entry_table, #colour_picker_table {
+
+hr {
+  margin: 0.7rem auto;
+  width: 80%;
+}
+
+h1 {
+  margin-top: 0.7rem;
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 0.2rem;
+}
+
+td {
+  border: 2px solid #aaaaaa;
+  border-collapse: collapse;
+  width: 20px;
+  height: 20px;
+}
+
+#colour_picker_table {
   margin: auto;
   margin-top: 1rem;
+}
+
+[data-selected="false"] {
+  border: 2px solid #aaa;
+}
+
+[data-selected="true"] {
+  border: 2px solid #0f0
 }
 
 #whitebox {
@@ -18,38 +48,72 @@
 
 #greenbox {
   background-color: rgb(74, 178, 100);
-  border: 2px solid green;
 }
 
-td {
-  border: 1px solid #000000;
-  border-collapse: collapse;
-  width: 20px;
-  height: 20px;
+#entry_table {
+  margin: auto;
+  margin-top: 1rem;
 }
+
+[data-colour="white"] {
+  background-color: rgb(255, 255, 255);
+}
+
+[data-colour="yellow"] {
+  background-color: rgb(221, 188, 88);
+  border: none;
+}
+
+[data-colour="green"] {
+  background-color: rgb(74, 178, 100);
+  border: none;
+}
+
 
 #final_word {
   margin: auto;
   display: block;
   margin-top: 1rem;
+  width: 130px;
 }
 
 button {
-  margin: auto;
   display: block;
-  margin-top: 1rem;
+  margin: 1rem auto;
+  width: 135px;
 }
 
-.guessContainer h3, .guessContainer table {
+.guessContainer {
+  float:left;
+  width: 30%;
+}
+
+.guessContainer h3 {
+  display: inline;
+  margin-right: 0.5rem;
+}
+
+.guessContainer table {
   display: inline;
 }
 
 .scrollBox {
-  width: 20%;
+  width: 100%;
   height:200px;
   overflow: scroll;
 }
 
 .scrollBox ul {
   list-style: none;
+}
+
+footer {
+  width: 100%;
+}
+
+footer p {
+  color: #222;
+  font-size: 0.9rem;
+  padding: 0.25rem;
+  text-align: center;
 }

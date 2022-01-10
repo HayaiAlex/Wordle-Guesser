@@ -9,13 +9,14 @@ window.onload=function() {
   document.getElementById("entry_table").addEventListener("click",setColour)
 }
 
-colours = {
-  white: "rgb(255, 255, 255)",
-  yellow: "rgb(221, 188, 88)",
-  green: "rgb(74, 178, 100)",
-}
 
-let newColour = colours["green"];
+// colours = {
+//   white: "rgb(255, 255, 255)",
+//   yellow: "rgb(221, 188, 88)",
+//   green: "rgb(74, 178, 100)",
+// }
+
+let newColour = "green";
 
 function keyBoxClicked(colour) {
 
@@ -27,12 +28,12 @@ function keyBoxClicked(colour) {
 
   // reset box outlines
   for (let box in colourBoxes) {
-    colourBoxes[box].style.border = "1px solid black";
+    colourBoxes[box].setAttribute("data-selected","false");
   }
 
   // set coloured box outline
-  colourBoxes[colour+"box"].style.border = "2px solid green";
-  newColour = colours[colour];
+  colourBoxes[colour+"box"].setAttribute("data-selected","true");
+  newColour = colour
 }
 
 function setColour(clicked) {
@@ -41,7 +42,7 @@ function setColour(clicked) {
     return
   }
 
-  element.style.backgroundColor = newColour;
+  element.setAttribute("data-colour",newColour);
   
 }
 
@@ -58,7 +59,7 @@ function findLastLine() {
       // console.log("checking td",j,cells[j]);
       var cell = cells[j]
       last_row = i
-      if (cell.style.backgroundColor != colours.green) {
+      if (cell.dataset.colour != "green") {
         last_row = 0;
         break;
       }
@@ -126,7 +127,7 @@ async function getWords() {
   */
 }
 
-async function guessWords(word,row) {
+async function guessWords(final_word,row) {
   let words = await getWords();
 
   // let template = [0,g,g,g,g]
@@ -135,28 +136,28 @@ async function guessWords(word,row) {
   let patterns = [""];
   for (let i=0; i < row.children.length; i++) {
     let td = row.children[i];
-    let bgColor = td.style.backgroundColor;
+    let bgColor = td.dataset.colour;
 
     let newPatterns = [];
 
     // if white box accept any letter
-    if (bgColor == "" || bgColor == colours.white) {
+    if (bgColor == "" || bgColor == "white") {
       for (let pattern of patterns) {
         newPatterns.push(pattern + ".");
       }
 
     // if green accept only the correct letter
-    } else if (bgColor == colours.green) {
+    } else if (bgColor == "green") {
       for (let pattern of patterns) {
-        newPatterns.push(pattern + word[i]);
+        newPatterns.push(pattern + final_word[i]);
       }
 
     // if yellow accept any letter from a different position
-    } else if (bgColor == colours.yellow) {
+    } else if (bgColor == "yellow") {
       // go through every letter in the word it could possibly be
       let letterPosition = i;
       let currentletterPosition = 0;
-      for (let letter of word) {
+      for (let letter of final_word) {
         // except itself which is in the incorrect position
         // and add it to all the patterns
         if (currentletterPosition != letterPosition) {
@@ -184,17 +185,65 @@ async function guessWords(word,row) {
   let results = [];
 
   for (let pattern of patterns) {
-    console.log(pattern);
     
     for (let word of words) {
       if (word.search(pattern) >= 0) {
-        results.push(word);
+        if (word != final_word) {
+          results.push(word);
+        }
       }
     }
   }
 
   
   return results;
+}
+
+function clearResults() {
+  let results = document.getElementById("results");
+
+  while (results.lastChild) {
+    results.removeChild(results.lastChild);
+  }
+}
+
+function displayResults(row,results) {
+
+  let results_container = document.getElementById("results");
+
+  let div = document.createElement("div");
+  div.className = "guessContainer";
+  results_container.appendChild(div);
+
+  let header = document.createElement("h3");
+  header.innerHTML = "Row "+String(row);
+  div.appendChild(header);
+
+  let table = document.createElement("table");
+  let tbody = document.createElement("tbody");
+  div.appendChild(table);
+  table.appendChild(tbody);
+
+  let entry_table = document.getElementById("entry_table");
+  let rowtds = entry_table.children[0].children[row-1].cloneNode(true);
+  tbody.appendChild(rowtds);
+
+  let p = document.createElement("p");
+  p.innerHTML = "You might have guessed with..."
+  div.appendChild(p);
+
+  let scrollbox = document.createElement("div")
+  scrollbox.className = "scrollBox";
+  div.appendChild(scrollbox);
+
+  let ul = document.createElement("ul");
+  scrollbox.appendChild(ul)
+
+  for (let result of results) {
+    let li = document.createElement("li");
+    li.innerHTML = result;
+    ul.appendChild(li);
+  }
 }
 
 async function findGuesses() {
@@ -208,8 +257,17 @@ async function findGuesses() {
   var table = document.getElementById("entry_table")
   var rows = (table.children[0].children)
   let word = document.getElementById("final_word").value;
-  // add a check for lastline == 0 (-1 is no row)
-  let results = await guessWords(word,rows[lastLine-1])
-  console.log(results);
+
+  clearResults()
+  for (let rowNum=0; rowNum<lastLine; rowNum++) {
+    
+    // add a check for lastline == 0 (-1 is no row)
+    let results = await guessWords(word,rows[rowNum]);
+    // since rows start at 0, add 1 to rows
+
+    displayResults(rowNum+1,results)
+
+  }
+
 
 }

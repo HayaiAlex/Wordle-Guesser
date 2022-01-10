@@ -9,12 +9,16 @@
   <script src="main.js"></script>
 </head>
 <body>
-  
+  <header>
+    <h1>WORDLE GUESS GUESSER</h1>
+    <hr>
+  </header>
+
   <table id="colour_picker_table">
     <tr>
-      <td id="whitebox" onclick="keyBoxClicked('white')"></td>
-      <td id="yellowbox" onclick="keyBoxClicked('yellow')"></td>
-      <td id="greenbox" onclick="keyBoxClicked('green')"></td>
+      <td id="whitebox" data-selected="false" onclick="keyBoxClicked('white')"></td>
+      <td id="yellowbox" data-selected="false" onclick="keyBoxClicked('yellow')"></td>
+      <td id="greenbox" data-selected="true" onclick="keyBoxClicked('green')"></td>
     </tr>
   </table>
 
@@ -63,18 +67,22 @@
     </tr>
   </table>
 
-  <input type="text" id="final_word" name="final word" placeholder="Enter the final word here...">
+  <input type="text" id="final_word" name="final word" placeholder="Enter answer here">
   <button onclick="findGuesses()">Find Guesses!</button>
 
-  <div class="guessContainer">
+  <div id="results">
+
+  </div>
+
+  <!-- <div class="guessContainer">
     <h3>Row 4</h3>
     <table>
       <tr>
+        <td style="background-color: green;"></td>
+        <td style="background-color: yellow;"></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td style="background-color: green;"></td>
       </tr>
     </table>
 
@@ -86,14 +94,14 @@
         <li>Test</li>
         <li>Test</li>
         <li>Test</li>
-        <li>Test</li>
-        <li>Test</li>
-        <li>Test</li>
-        <li>Test</li>
-        <li>Test</li>
       </ul>
     </div>
-  </div>
+  </div> -->
+
+  <footer>
+    <hr>
+    <p>Developed by Alex Adams</p>
+  </footer>
 
 </body>
 </html>
