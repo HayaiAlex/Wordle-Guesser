@@ -19,10 +19,10 @@ h1 {
 }
 
 td {
-  border: 2px solid #aaaaaa;
-  border-collapse: collapse;
-  width: 20px;
-  height: 20px;
+  border: 0.2rem solid #aaaaaa;
+  box-sizing: border-box;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 #colour_picker_table {
@@ -31,11 +31,11 @@ td {
 }
 
 [data-selected="false"] {
-  border: 2px solid #aaa;
+  border: 0.2rem solid #aaa;
 }
 
 [data-selected="true"] {
-  border: 2px solid #0f0
+  border: 0.2rem solid rgb(0, 0, 0)
 }
 
 #whitebox {
@@ -74,14 +74,32 @@ td {
   margin: auto;
   display: block;
   margin-top: 1rem;
-  width: 130px;
+  width: 18rem;
+  height: 2.5rem;
+}
+
+#final_word::placeholder {
+  text-align: center;
+  font-size: 1.25rem;
 }
 
 button {
   display: block;
   margin: 1rem auto;
-  width: 135px;
+  width: 18.5rem;
+  height: 2.5rem;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  background-color: #ccc;
+  box-shadow: 0.2rem 0.2rem 0.4rem #ddd;
 }
+
+button:hover {
+  background-color: #ddd;
+}
+
 
 .guessContainer {
   float:left;
