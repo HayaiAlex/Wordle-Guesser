@@ -137,11 +137,11 @@ async function guessWords(final_word,row) {
   for (let i=0; i < row.children.length; i++) {
     let td = row.children[i];
     let bgColor = td.dataset.colour;
-
+    
     let newPatterns = [];
 
     // if white box accept any letter
-    if (bgColor == "" || bgColor == "white") {
+    if (bgColor == undefined || bgColor == "white") {
       for (let pattern of patterns) {
         newPatterns.push(pattern + ".");
       }
@@ -256,7 +256,7 @@ async function findGuesses() {
 
   var table = document.getElementById("entry_table")
   var rows = (table.children[0].children)
-  let word = document.getElementById("final_word").value;
+  let word = document.getElementById("final_word").value.toLowerCase();
 
   clearResults()
   for (let rowNum=0; rowNum<lastLine; rowNum++) {
