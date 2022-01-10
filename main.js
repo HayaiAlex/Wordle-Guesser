@@ -269,5 +269,53 @@ async function findGuesses() {
 
   }
 
+}
+
+function worldeEntryChanged() {
+  // Two formats
+  // 1. Entire message copied with Wordle header
+  // 2. Just boxes copied
+  // For both can get bottom 5 columns
+  // and validate accpetable contents
+
+  // Wordle 205 5/6
+
+  // ⬜⬜⬜🟨⬜
+  // ⬜⬜🟨⬜🟨
+  // 🟨🟨⬜⬜⬜
+  // 🟨🟩🟨⬜⬜
+  // 🟩🟩🟩🟩🟩
+
+  // ⬜⬜⬜🟨⬜
+  // ⬜⬜🟨⬜🟨
+  // 🟨🟨⬜⬜⬜
+  // 🟨🟩🟨⬜⬜
+  // 🟩🟩🟩🟩🟩
+
+  let textarea = document.getElementById("wordle_format_input");
+  let input = textarea.value;
+  textarea.value = "";
+  console.log(input);
+
+  // remove new lines
+  input = input.replace(/[\n\r]/g, '');
+  // get wordle emojis
+  input = input.match(/[⬜🟨🟩]+/g);
+  // get string out from array
+  input = input[0];
+
+  var table = document.getElementById("entry_table")
+  var rows = (table.children[0].children)
+  let counter = 0;
+  for (let square of input) {
+    let td = rows[Math.floor(counter/5)].children[counter%5];
+    if (square == "⬜") {
+    } else if (square == "🟨") {
+      td.dataset.colour = "yellow";
+    } else if (square == "🟩") {
+      td.dataset.colour = "green";
+    }
+    counter++;
+  }
 
 }

@@ -14,13 +14,19 @@
     <hr>
   </header>
 
-  <table id="colour_picker_table">
-    <tr>
-      <td id="whitebox" data-selected="false" onclick="keyBoxClicked('white')"></td>
-      <td id="yellowbox" data-selected="false" onclick="keyBoxClicked('yellow')"></td>
-      <td id="greenbox" data-selected="true" onclick="keyBoxClicked('green')"></td>
-    </tr>
-  </table>
+  <div id="inputs">
+    
+    <table id="colour_picker_table">
+      <tr>
+        <td id="whitebox" data-selected="false" onclick="keyBoxClicked('white')"></td>
+        <td id="yellowbox" data-selected="false" onclick="keyBoxClicked('yellow')"></td>
+        <td id="greenbox" data-selected="true" onclick="keyBoxClicked('green')"></td>
+      </tr>
+    </table>
+
+    <!-- <input type="text" name="wordle format input" id="wordle_format_input" placeholder="Wordle Format Paste"> -->
+    <textarea name="wordle format input" id="wordle_format_input" cols="10" rows="10" placeholder="Paste Wordle Format Here" oninput="worldeEntryChanged()"></textarea>
+  </div>
 
   <table id="entry_table">
     <tr>
