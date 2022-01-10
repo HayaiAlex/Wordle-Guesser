@@ -10,7 +10,7 @@
 </head>
 <body>
   
-  <table>
+  <table id="colour_picker_table">
     <tr>
       <td id="whitebox" onclick="keyBoxClicked('white')"></td>
       <td id="yellowbox" onclick="keyBoxClicked('yellow')"></td>
@@ -65,6 +65,35 @@
 
   <input type="text" id="final_word" name="final word" placeholder="Enter the final word here...">
   <button onclick="findGuesses()">Find Guesses!</button>
+
+  <div class="guessContainer">
+    <h3>Row 4</h3>
+    <table>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <p>Guesses:</p>
+    <div class="scrollBox">
+      <ul>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+        <li>Test</li>
+      </ul>
+    </div>
+  </div>
 
 </body>
 </html>

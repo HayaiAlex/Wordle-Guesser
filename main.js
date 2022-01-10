@@ -18,7 +18,6 @@ colours = {
 let newColour = colours["green"];
 
 function keyBoxClicked(colour) {
-  console.log(colour);
 
   colourBoxes = {
     whitebox: document.getElementById("whitebox"),
@@ -79,7 +78,13 @@ async function getWords() {
     return res.text();
   })
   .then(function (text) {
-    return text.split("\n");
+    let words = text.split("\n");
+    // removes carriage returns
+    let newList = [];
+    for (let word of words) {
+      newList.push(word.substring(0,5));
+    }
+    return newList;
   });
   let word_list = await word_list_promise;
   return word_list;
@@ -127,29 +132,72 @@ async function guessWords(word,row) {
   // let template = [0,g,g,g,g]
   // given windy
   // .indy
-  let pattern = "";
+  let patterns = [""];
   for (let i=0; i < row.children.length; i++) {
     let td = row.children[i];
     let bgColor = td.style.backgroundColor;
+
+    let newPatterns = [];
+
+    // if white box accept any letter
     if (bgColor == "" || bgColor == colours.white) {
-      pattern = pattern + ".";
+      for (let pattern of patterns) {
+        newPatterns.push(pattern + ".");
+      }
+
+    // if green accept only the correct letter
     } else if (bgColor == colours.green) {
-      pattern = pattern + word[i];
-    } else {
+      for (let pattern of patterns) {
+        newPatterns.push(pattern + word[i]);
+      }
 
+    // if yellow accept any letter from a different position
+    } else if (bgColor == colours.yellow) {
+      // go through every letter in the word it could possibly be
+      let letterPosition = i;
+      let currentletterPosition = 0;
+      for (let letter of word) {
+        // except itself which is in the incorrect position
+        // and add it to all the patterns
+        if (currentletterPosition != letterPosition) {
+
+          // first add the letter to all current patterns
+          // subsequent letters need to make a new pattern
+          // rather than adding onto the same pattern and
+          // creating a longer than 5 letter word.
+          for (let pattern of patterns) {
+            if (pattern.length == i) {
+              newPatterns.push(pattern + letter);
+            } else {
+              // create a new pattern instead
+              let newPattern = pattern.substring(0,i-1)
+              newPattern = newPattern + letter;
+              newPatterns.push(newPattern);
+            }
+          }
+        }
+        currentletterPosition++;
+      }
+    }
+    patterns = newPatterns;
+  }
+  let results = [];
+
+  for (let pattern of patterns) {
+    console.log(pattern);
+    
+    for (let word of words) {
+      if (word.search(pattern) >= 0) {
+        results.push(word);
+      }
     }
   }
-  console.log(pattern);
-  for (let word of words) {
-    if (word.search(pattern) >= 0) {
-      console.log(word);
-    }
-  }
+
   
-
+  return results;
 }
 
-function findGuesses() {
+async function findGuesses() {
   
   // create a regex/filter based final word
   // and missing letters
@@ -161,6 +209,7 @@ function findGuesses() {
   var rows = (table.children[0].children)
   let word = document.getElementById("final_word").value;
   // add a check for lastline == 0 (-1 is no row)
-  guessWords(word,rows[lastLine-1])
+  let results = await guessWords(word,rows[lastLine-1])
+  console.log(results);
 
 }

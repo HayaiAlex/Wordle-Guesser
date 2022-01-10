@@ -3,7 +3,7 @@
   font-size: 1rem;
 }
 
-table {
+#entry_table, #colour_picker_table {
   margin: auto;
   margin-top: 1rem;
 }
@@ -38,4 +38,18 @@ button {
   margin: auto;
   display: block;
   margin-top: 1rem;
+}
+
+.guessContainer h3, .guessContainer table {
+  display: inline;
+}
+
+.scrollBox {
+  width: 20%;
+  height:200px;
+  overflow: scroll;
+}
+
+.scrollBox ul {
+  list-style: none;
 }
