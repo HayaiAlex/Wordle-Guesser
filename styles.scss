@@ -1,4 +1,9 @@
-@charset "UTF-8";
+
+$yellow: rgb(221, 188, 88);
+$green: rgb(74, 178, 100);
+
+$box-border-colour: #aaa;
+
 * {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -32,23 +37,16 @@ h1 {
 
 td {
   border: 0.2rem solid #aaaaaa;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   width: 3.5rem;
   height: 3.5rem;
 }
 
 #inputs {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-top: 1rem;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 #colour_picker_table {
@@ -56,13 +54,12 @@ td {
 }
 
 #wordle_format_input {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  border: 0.2rem solid #aaa;
+  box-sizing: border-box;
+  border: 0.2rem solid $box-border-colour;
   margin-left: 1rem;
   width: 3.5rem;
   height: 3.5rem;
-  overflow: hidden;
+  overflow:hidden;
   resize: none;
 }
 
@@ -73,11 +70,11 @@ td {
 }
 
 [data-selected="false"] {
-  border: 0.2rem solid #aaa;
+  border: 0.2rem solid $box-border-colour;
 }
 
 [data-selected="true"] {
-  border: 0.2rem solid black;
+  border: 0.2rem solid rgb(0, 0, 0)
 }
 
 #whitebox {
@@ -85,11 +82,11 @@ td {
 }
 
 #yellowbox {
-  background-color: #ddbc58;
+  background-color: $yellow;
 }
 
 #greenbox {
-  background-color: #4ab264;
+  background-color: $green;
 }
 
 #entry_table {
@@ -98,24 +95,22 @@ td {
 }
 
 [data-colour="white"] {
-  -webkit-animation: whiteransistion 0.5s forwards;
-          animation: whiteransistion 0.5s forwards;
-  background-color: white;
+  animation: whiteransistion 0.5s forwards;
+  background-color: rgb(255, 255, 255);
 }
 
 [data-colour="yellow"] {
-  -webkit-animation: yellowTransistion 0.5s forwards;
-          animation: yellowTransistion 0.5s forwards;
-  background-color: #ddbc58;
+  animation: yellowTransistion 0.5s forwards;
+  background-color: $yellow;
   border: none;
 }
 
 [data-colour="green"] {
-  -webkit-animation: greenTransistion 0.5s forwards;
-          animation: greenTransistion 0.5s forwards;
-  background-color: #4ab264;
+  animation: greenTransistion 0.5s forwards;
+  background-color: $green;
   border: none;
 }
+
 
 #final_word {
   margin: auto;
@@ -127,24 +122,6 @@ td {
   font-size: 1.75rem;
   text-transform: uppercase;
   color: #333;
-}
-
-#final_word::-webkit-input-placeholder {
-  text-align: center;
-  text-transform: none;
-  font-size: 1.25rem;
-}
-
-#final_word:-ms-input-placeholder {
-  text-align: center;
-  text-transform: none;
-  font-size: 1.25rem;
-}
-
-#final_word::-ms-input-placeholder {
-  text-align: center;
-  text-transform: none;
-  font-size: 1.25rem;
 }
 
 #final_word::placeholder {
@@ -163,8 +140,7 @@ button {
   font-weight: 600;
   color: #333;
   background-color: #ccc;
-  -webkit-box-shadow: 0.2rem 0.2rem 0.4rem #ddd;
-          box-shadow: 0.2rem 0.2rem 0.4rem #ddd;
+  box-shadow: 0.2rem 0.2rem 0.4rem #ddd;
 }
 
 button:hover {
@@ -172,24 +148,16 @@ button:hover {
 }
 
 #results {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
 }
 
 .guessContainer {
   margin: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 0.5rem;
+  box-sizing: border-box;
+  padding:0.5rem;
 }
 
 .guessContainer h3 {
@@ -225,14 +193,17 @@ button:hover {
     width: 50%;
     margin-top: 0.5rem;
   }
+  
   .guessContainer td {
     height: 0;
-    padding-bottom: 15%;
+    padding-bottom: 15%;;
   }
+
   .scrollBox {
     height: 150px;
   }
 }
+
 
 footer {
   width: 100%;
@@ -245,42 +216,22 @@ footer p {
   text-align: center;
 }
 
-@-webkit-keyframes greenTransistion {
-  from {
-  }
-  to {
-    background-color: white;
-    border: 0.2rem solid #aaa;
-  }
-}
-
 @keyframes greenTransistion {
   from {
   }
   to {
-    background-color: white;
-    border: 0.2rem solid #aaa;
-  }
-}
-
-@-webkit-keyframes yellowTransistion {
-  from {
-    background-color: #fff;
-    border: 0.2rem solid #aaa;
-  }
-  to {
-    background-color: #ddbc58;
-    border: 0;
+    background-color: rgb(255, 255, 255);
+    border: 0.2rem solid $box-border-colour;
   }
 }
 
 @keyframes yellowTransistion {
   from {
     background-color: #fff;
-    border: 0.2rem solid #aaa;
+    border: 0.2rem solid $box-border-colour;
   }
   to {
-    background-color: #ddbc58;
+    background-color: $yellow;
     border: 0;
   }
 }
@@ -288,10 +239,10 @@ footer p {
 @keyframes greenTransistion {
   from {
     background-color: #fff;
-    border: 0.2rem solid #aaa;
+    border: 0.2rem solid $box-border-colour;
   }
   to {
-    background-color: #4ab264;
+    background-color: $green;
     border: 0;
   }
 }
@@ -302,4 +253,3 @@ footer p {
 ⬜🟨🟩⬜⬜
 🟩🟩🟩⬜🟨
 🟩🟩🟩🟩🟩 */
-/*# sourceMappingURL=styles.css.map */
