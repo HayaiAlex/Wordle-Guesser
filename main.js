@@ -200,7 +200,7 @@ async function guessWords(final_word,row,file) {
     }
   }
 
-  if (results.length == 0) {
+  if (results.length == 0 && file != wordfiles[1]) {
     return guessWords(final_word,row,wordfiles[1])
   }
   
@@ -237,7 +237,11 @@ function displayResults(row,results) {
   tbody.appendChild(rowtds);
 
   let p = document.createElement("p");
-  p.innerHTML = "You might have guessed with..."
+  if (results.length == 0) {
+    p.innerHTML = "I'm not sure what you guessed with..."
+  } else {
+    p.innerHTML = "You might have guessed with..."
+  }
   div.appendChild(p);
 
   let scrollbox = document.createElement("div")
