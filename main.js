@@ -312,7 +312,7 @@ function worldeEntryChanged() {
   // remove new lines
   input = input.replace(/[\n\r]/g, '');
   // get wordle emojis
-  input = input.match(/[⬜🟨🟩]+/g);
+  input = input.match(/[⬜⬛🟨🟩]+/g);
   // get string out from array
   input = input[0];
 
@@ -321,7 +321,7 @@ function worldeEntryChanged() {
   let counter = 0;
   for (let square of input) {
     let td = rows[Math.floor(counter/5)].children[counter%5];
-    if (square == "⬜") {
+    if (square == "⬜" || square == "⬛") {
       td.dataset.colour = "white";
     } else if (square == "🟨") {
       td.dataset.colour = "yellow";
