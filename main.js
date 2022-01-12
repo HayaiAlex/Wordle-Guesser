@@ -9,6 +9,11 @@ window.onload=function() {
   document.getElementById("entry_table").addEventListener("click",setColour)
 }
 
+wordfiles = [
+  "five_letter_list_google_10kfrequency_usa.txt",
+  "five_letter_list_2.txt",
+]
+
 
 // colours = {
 //   white: "rgb(255, 255, 255)",
@@ -71,10 +76,10 @@ function findLastLine() {
   return last_row
 }
 
-async function getWords() {
+async function getWords(file) {
   // Thank you Jack <3
   
-  let word_list_promise = fetch("five_letter_list.txt")
+  let word_list_promise = fetch(file)
   .then(function (res) {
     return res.text();
   })
@@ -127,8 +132,8 @@ async function getWords() {
   */
 }
 
-async function guessWords(final_word,row) {
-  let words = await getWords();
+async function guessWords(final_word,row,file) {
+  let words = await getWords(file);
 
   // let template = [0,g,g,g,g]
   // given windy
@@ -195,6 +200,9 @@ async function guessWords(final_word,row) {
     }
   }
 
+  if (results.length == 0) {
+    return guessWords(final_word,row,wordfiles[1])
+  }
   
   return results;
 }
@@ -262,7 +270,7 @@ async function findGuesses() {
   for (let rowNum=0; rowNum<lastLine; rowNum++) {
     
     // add a check for lastline == 0 (-1 is no row)
-    let results = await guessWords(word,rows[rowNum]);
+    let results = await guessWords(word,rows[rowNum],wordfiles[0]);
     // since rows start at 0, add 1 to rows
 
     displayResults(rowNum+1,results)
