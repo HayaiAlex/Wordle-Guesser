@@ -6,7 +6,10 @@
 // nicely display possible guesses
 
 window.onload=function() {
-  document.getElementById("entry_table").addEventListener("click",setColour)
+  document.getElementById("entry_table").addEventListener("click",setColour);
+  document.getElementById("final_word").addEventListener("keydown",(event) => {
+    if (event.key == "Enter") {findGuesses();}
+  });
 }
 
 wordfiles = [
@@ -73,7 +76,7 @@ function findLastLine() {
       return last_row
     }
   }
-  return last_row
+  return 5;
 }
 
 async function getWords(file) {
@@ -259,7 +262,7 @@ function displayResults(row,results) {
 }
 
 async function findGuesses() {
-  
+
   // create a regex/filter based final word
   // and missing letters
   // e.g w*nd* might guess windy
@@ -269,6 +272,8 @@ async function findGuesses() {
   var table = document.getElementById("entry_table")
   var rows = (table.children[0].children)
   let word = document.getElementById("final_word").value.toLowerCase();
+
+  if (word.length !==5) {return}
 
   clearResults()
   for (let rowNum=0; rowNum<lastLine; rowNum++) {
